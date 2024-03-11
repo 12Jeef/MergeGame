@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+		<title>Merge</title>
+		<meta charset="UTF-8">
+	    <link rel="stylesheet" href="./style.css">
+		<style id="style"></style>
+    </head>
+    <body>
+		<script src="./socket.io.js"></script>
+		<script src="./ionicons/dist/ionicons/ionicons.esm.js"></script>
+		<script src="./ionicons/dist/ionicons/ionicons.js"></script>
+		<script type="module" src="app.js"></script>
+		<div id="game-hud-top">
+			<div id="score"></div>
+			<div id="moves"></div>
+		</div>
+		<div id="game-hud-bottom">
+			<div id="info-tiles"></div>
+			<div class="nav">
+				<div class="hamburger">
+					<ion-icon name="menu"></ion-icon>
+					<div class="nav">
+						<button id="game-board-button">
+							<ion-icon src="./assets/leaderboard.svg"></ion-icon>
+						</button>
+						<button id="game-help-button">
+							<ion-icon name="information"></ion-icon>
+						</button>
+						<button id="game-theme-button">
+							<ion-icon></ion-icon>
+						</button>
+					</div>
+				</div>
+				<div class="nav">
+					<button id="fast-button">
+						<ion-icon></ion-icon>
+					</button>
+					<button id="quit-button">
+						<ion-icon name="power-outline"></ion-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+		<div id="title">
+			<div class="title">MERGE</div>
+			<button id="play-button">
+				<ion-icon name="play"></ion-icon>
+			</button>
+			<div class="nav">
+				<button id="board-button">
+					<ion-icon src="./assets/leaderboard.svg"></ion-icon>
+				</button>
+				<button id="help-button">
+					<ion-icon name="information"></ion-icon>
+				</button>
+				<button id="theme-button">
+					<ion-icon></ion-icon>
+				</button>
+			</div>
+		</div>
+		<div id="finish">
+			<div id="finish-icon" class="block"></div>
+			<div class="title block">GAME OVER</div>
+			<div id="finish-score" class="block"></div>
+			<div id="finish-moves" class="block"></div>
+			<div id="new-best" class="block">NEW BEST</div>
+			<div class="footer">TAP TO CONTINUE</div>
+		</div>
+		<div id="board" class="page">
+			<div class="header">
+				<ion-icon src="./assets/leaderboard.svg"></ion-icon>
+				<div>LEADERBOARD</div>
+				<div class="space"></div>
+				<button id="board-back-button">
+					<ion-icon name="close"></ion-icon>
+				</button>
+			</div>
+			<div class="content">
+				<div id="board-entries">
+					<div id="board-no-entries" class="special">No entries yet</div>
+					<div id="board-no-internet" class="special">No internet</div>
+				</div>
+			</div>
+		</div>
+		<div id="help" class="page">
+			<div class="header">
+				<ion-icon name="information"></ion-icon>
+				<div>HELP</div>
+				<div class="space"></div>
+				<button id="help-back-button">
+					<ion-icon name="close"></ion-icon>
+				</button>
+			</div>
+			<div class="content">
+				<div class="content">
+					<div class="content">
+						<p>Tap to merge shapes. Merging two or more shapes of the same type will upgrade them.</p>
+						<p>Merging higher level shapes give more points!</p>
+					</div>
+					<div class="demo"><canvas id="demo1"></canvas></div>
+				</div>
+				<div class="center">
+					<div class="content">What's your highest score?</div>
+					<div class="demo"><canvas id="demo2"></canvas></div>
+				</div>
+				<div class="center">
+					<div class="content">Thanks to <a href="https://scratch.mit.edu/projects/555075895/">MERGE</a> on <a href="https://scratch.mit.edu/">Scratch</a></div>
+				</div>
+			</div>
+		</div>
+    </body>
+</html>

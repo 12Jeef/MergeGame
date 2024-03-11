@@ -1,0 +1,683 @@
+:root {
+    --t: 0.25s;
+}
+
+@font-face {
+    font-family: Titillium;
+    src: url(./assets/Titillium.ttf);
+}
+
+* {
+    box-sizing: border-box;
+
+    font-family: Titillium, Arial, Helvetica, sans-serif;
+}
+
+button {
+    border: none;
+    outline: none;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+body {
+    min-width: 400px;
+    min-height: 600px;
+    margin: 0px;
+    padding: 0px;
+
+    background-color: var(--bg);
+}
+a {
+    color: inherit;
+
+    transition: color var(--t);
+}
+a:hover {
+    color: var(--a);
+}
+
+body > canvas {
+    z-index: 0;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(110%);
+
+    opacity: 0%;
+    visibility: hidden;
+    filter: blur(10px);
+
+    transition: transform var(--t), opacity var(--t), visibility var(--t), filter var(--t);
+}
+body.game > canvas {
+    transform: translate(-50%, -50%) scale(100%);
+
+    opacity: 100%;
+    visibility: inherit;
+    filter: blur(0px);
+}
+
+body > #game-hud-top {
+    z-index: 1;
+
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform-origin: 50% 100%;
+    transform: translate(-50%, -50%) scale(110%);
+
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+
+    opacity: 0%;
+    visibility: hidden;
+    filter: blur(10px);
+
+    transition: transform var(--t), opacity var(--t), visibility var(--t), filter var(--t);
+}
+body.game > #game-hud-top {
+    transform: translate(-50%, 0%) scale(100%);
+
+    opacity: 100%;
+    visibility: inherit;
+    filter: blur(0px);
+}
+body > #game-hud-top > #score {
+    margin-top: 10px;
+
+    color: var(--fg);
+
+    font-size: 3em;
+    user-select: none;
+}
+body > #game-hud-top > #moves {
+    position: absolute;
+
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+
+    color: var(--fg-a);
+
+    font-size: 1.5em;
+    user-select: none;
+}
+body > #game-hud-bottom {
+    z-index: 1;
+
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    transform-origin: 50% 0%;
+    transform: translate(-50%, 50%) scale(110%);
+
+    width: 100%;
+    max-width: 100%;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: stretch;
+    align-content: stretch;
+    gap: 10px;
+
+    opacity: 0%;
+    visibility: hidden;
+    filter: blur(10px);
+
+    transition: transform var(--t), opacity var(--t), visibility var(--t), filter var(--t);
+}
+body.game > #game-hud-bottom {
+    transform: translate(-50%, 0%) scale(100%);
+
+    opacity: 100%;
+    visibility: inherit;
+    filter: blur(0px);
+}
+body > #game-hud-bottom > #info-tiles {
+    padding: 0px 50px;
+    
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 0px;
+
+    outline: 0px solid #f00;
+}
+body > #game-hud-bottom > #info-tiles > div {
+    position: relative;
+
+    width: 20px;
+    min-width: 20px;
+    aspect-ratio: 1 / 1;
+    margin: 5px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    outline: 0px solid #0f0;
+}
+body > #game-hud-bottom > .nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+body > #game-hud-bottom > .nav > .hamburger {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+}
+body > #game-hud-bottom > .nav > .hamburger > ion-icon {
+    min-width: 1em;
+}
+body > #game-hud-bottom > .nav > .hamburger > .nav {
+    transform: translateX(-20px);
+
+    justify-content: flex-start !important;
+
+    opacity: 0%;
+    visibility: hidden;
+
+    transition: transform var(--t), opacity var(--t), visibility var(--t);
+}
+body > #game-hud-bottom > .nav > .hamburger:hover > .nav {
+    transform: translateX(0px);
+
+    opacity: 100%;
+    visibility: inherit;
+}
+body > #game-hud-bottom > .nav > .nav,
+body > #game-hud-bottom > .nav > .hamburger > .nav {
+    flex-basis: 100%;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+}
+body > #game-hud-bottom > .nav > .nav > button,
+body > #game-hud-bottom > .nav > .hamburger > ion-icon,
+body > #game-hud-bottom > .nav > .hamburger > .nav > button {
+    padding: 0px;
+
+    color: var(--fg);
+
+    font-size: 2em;
+
+    background-color: transparent;
+
+    transition: color var(--t);
+}
+body > #game-hud-bottom > .nav > .nav > button:not(:disabled):hover,
+body > #game-hud-bottom > .nav > .hamburger > .nav > button:not(:disabled):hover {
+    color: var(--a);
+}
+body > #game-hud-bottom > .nav > .nav > button:disabled,
+body > #game-hud-bottom > .nav > .hamburger > .nav > button:disabled {
+    color: var(--fg-8);
+}
+
+body > #title {
+    z-index: 1;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(110%);
+
+    max-width: 100%;
+    max-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+
+    opacity: 0%;
+    visibility: hidden;
+    
+    transition: transform var(--t), opacity var(--t), visibility var(--t);
+}
+body.title > #title {
+    transform: translate(-50%, -50%) scale(100%);
+
+    opacity: 100%;
+    visibility: inherit;
+}
+body > #title > .title {
+    color: var(--fg);
+
+    font-size: 4em;
+    letter-spacing: 0.25em;
+}
+body > #title > button {
+    align-self: stretch;
+
+    transform: scale(100%);
+
+    padding: 15px;
+
+    font-size: 2em;
+
+    background-color: var(--a);
+    color: var(--fg-8);
+    opacity: 100%;
+
+    transition: transform var(--t), opacity var(--t);
+}
+body > #title > button:not(:disabled):hover {
+    transform: scale(110%);
+}
+body > #title > button:disabled {
+    opacity: 75%;
+}
+body > #title > .nav {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+}
+body > #title > .nav > button {
+    position: relative;
+
+    aspect-ratio: 1 / 1;
+    padding: 10px;
+
+    font-size: 2em;
+
+    background-color: transparent;
+    color: var(--fg);
+    opacity: 100%;
+
+    transition: color var(--t), opacity var(--t);
+}
+body > #title > .nav > button:not(:disabled):hover {
+    color: var(--bg);
+}
+body > #title > .nav > button:disabled {
+    opacity: 75%;
+}
+body > #title > .nav > button::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0%);
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--fg);
+    opacity: 0%;
+
+    transition: transform var(--t), opacity var(--t);
+}
+body > #title > .nav > button:not(:disabled):hover::before {
+    transform: translate(-50%, -50%) scale(100%);
+
+    opacity: 100%;
+}
+
+body > #finish {
+    z-index: 1;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(110%);
+
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 0px;
+
+    opacity: 0%;
+    visibility: hidden;
+    
+    transition: transform var(--t), opacity var(--t), visibility var(--t);
+}
+body.finish > #finish {
+    transform: translate(-50%, -50%) scale(100%);
+
+    opacity: 100%;
+    visibility: inherit;
+}
+body > #finish > #finish-icon {
+    width: 30px;
+    aspect-ratio: 1 / 1;
+    margin-bottom: 20px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+body > #finish > .title {
+    padding: 0.25em 2em;
+
+    background-color: var(--fg);
+    color: var(--bg);
+
+    font-size: 1.5em;
+    user-select: none;
+}
+body > #finish > #finish-score {
+    color: var(--fg);
+
+    font-size: 3em;
+}
+body > #finish > #new-best {
+    transform: translateY(20px);
+
+    min-width: max-content;
+    padding: 0.1em 1em;
+    margin-top: 20px;
+
+    background-color: var(--a);
+    color: var(--bg);
+    opacity: 0%;
+    visibility: hidden;
+
+    transition: transform var(--t), opacity var(--t), visibility var(--t);
+}
+body > #finish.best > #new-best {
+    transform: translateY(0px);
+
+    opacity: 100%;
+    visibility: inherit;
+}
+body > #finish > #finish-moves {
+    color: var(--fg);
+
+    font-size: 1.5em;
+}
+body > #finish > .footer {
+    transform: translateY(0px);
+
+    margin-top: 100px;
+
+    color: var(--fg-8);
+
+    user-select: none;
+
+    transition: transform var(--t);
+}
+body > #finish > .footer:hover {
+    transform: translateY(-5px);
+}
+
+body > .page {
+    z-index: 1;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(110%);
+
+    width: 75%;
+    max-width: 75%;
+    height: 75%;
+    max-height: 75%;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+    gap: 10px;
+
+    opacity: 0%;
+    visibility: hidden;
+    
+    transition: transform var(--t), opacity var(--t), visibility var(--t);
+}
+body > .page > .header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+
+    color: var(--fg);
+    border-bottom: 2px solid var(--fg);
+
+    font-size: 1.5em;
+}
+body > .page > .header > .space {
+    flex-basis: 100%;
+}
+body > .page > .header > :not(.space) {
+    min-width: max-content;
+}
+body > .page > .header > ion-icon:not(.space) {
+    min-width: 1em;
+}
+body > .page > .header > button {
+    position: relative;
+
+    aspect-ratio: 1 / 1;
+    padding: 5px;
+
+    background-color: transparent;
+    color: var(--fg);
+    opacity: 100%;
+
+    transition: color var(--t), opacity var(--t);
+}
+body > .page > .header > button:not(:disabled):hover {
+    color: var(--bg);
+}
+body > .page > .header > button:disabled {
+    opacity: 75%;
+}
+body > .page > .header > button::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0%);
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--fg);
+    opacity: 0%;
+
+    transition: transform var(--t), opacity var(--t);
+}
+body > .page > .header > button:not(:disabled):hover::before {
+    transform: translate(-50%, -50%) scale(100%);
+
+    opacity: 100%;
+}
+body > .page > .content {
+    max-width: 100%;
+    max-height: calc(100% - 3em);
+    overflow: auto;
+}
+
+body.board > #board {
+    transform: translate(-50%, -50%) scale(100%);
+
+    opacity: 100%;
+    visibility: inherit;
+}
+body > #board > .content {
+    position: relative;
+}
+body > #board > .content > #board-entries {
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+}
+body > #board > .content > #board-entries > div,
+body > #board > .content > .you {
+    padding: 0px 10px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+
+    background-color: var(--a-0);
+    color: var(--fg);
+
+    font-size: 1.5em;
+
+    transition: background-color var(--t), color var(--t);
+}
+body > #board > .content > #board-entries > div.this,
+body > #board > .content > .you {
+    background-color: var(--a);
+    color: var(--bg);
+}
+body > #board > .content > #board-entries > div > .number,
+body > #board > .content > .you > .number {
+    min-width: 2em;
+}
+body > #board > .content > #board-entries > div > .score,
+body > #board > .content > .you > .score {
+    flex-basis: 66%;
+}
+body > #board > .content > #board-entries > div > .date,
+body > #board > .content > .you > .date {
+    flex-basis: 33%;
+
+    min-width: 3em;
+    
+    opacity: 50%;
+
+    text-align: right;
+    font-size: 0.75em;
+}
+body > #board > .content > #board-entries > div.special {
+    justify-content: center;
+
+    color: var(--fg-8);
+
+    font-size: 1em;
+}
+body > #board > .content > #you-top {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+
+    width: 100%;
+    max-width: 100%;
+}
+body > #board > .content > #you-bottom {
+    position: absolute;
+    bottom: 0%;
+    left: 0%;
+
+    width: 100%;
+    max-width: 100%;
+}
+
+body.help > #help {
+    transform: translate(-50%, -50%) scale(100%);
+
+    opacity: 100%;
+    visibility: inherit;
+}
+body > #help > .content {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+    gap: 20px;
+}
+body > #help > .content > .content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: center;
+    gap: 20px;
+}
+body > #help > .content > .content > .content {
+    padding: 10px 0px;
+
+    color: var(--fg);
+}
+body > #help > .content > .content > .demo {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+body > #help > .content > .center {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    gap: 10px;
+}
+body > #help > .content > .center > .content {
+    color: var(--fg);
+}
