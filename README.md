@@ -18,3 +18,5 @@ Made in 2023
 5) Select this entire directory / folder
 
 6) Pin the extension, and click on it to play!
+
+Inspired by [this Scratch game](https://scratch.mit.edu/projects/555075895/)
